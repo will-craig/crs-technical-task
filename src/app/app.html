@@ -5,7 +5,7 @@
     <h2>Dogs</h2>
     <button (click)="openEditorForAnimal(dog)">Select</button>
     <ul >
-      @for (trait of dog?.traits; track $index) {
+      @for (trait of dog.traits; track $index) {
       <li class="card">
           <strong>{{ trait.name }}</strong>
       </li>
@@ -18,7 +18,7 @@
     <h2>Cats</h2>
     <button (click)="openEditorForAnimal(cat)">Select</button>
     <ul>
-      @for (trait of cat?.traits; track $index) {
+      @for (trait of cat.traits; track $index) {
       <li class="card">
           <strong>{{ trait.name }}</strong>
       </li>
