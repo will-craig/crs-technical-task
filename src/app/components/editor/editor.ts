@@ -1,5 +1,5 @@
-import { Component, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, HostListener, inject, Input, Output, PLATFORM_ID, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Trait } from '../../domain/models/traits.model';
 import { Animal } from '../../domain/models/animal.model';
@@ -11,10 +11,6 @@ import { AnimalType } from '../../domain/enums/animal-types.enum';
   styleUrl: './editor.css'
 })
 export class Editor {
-  traitFilter: string = '';
-  traitSort: 'asc' | 'desc' = 'asc';
-
-  protected readonly title = signal('Animal Editor');
 
   constructor() { }
 
@@ -24,6 +20,12 @@ export class Editor {
 
   @Output() closed = new EventEmitter<boolean>();
   @Output() confirm = new EventEmitter<Animal>();
+
+  traitFilter: string = '';
+  traitSort: 'asc' | 'desc' = 'asc';
+
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  protected readonly title = signal('Animal Editor');
   
   get filteredSortedTraitsPool(): Trait[] {
     //available traits pool are traits not already selected
@@ -75,6 +77,8 @@ export class Editor {
 
   // Prevent scroll on body when open (optional)
   ngOnChanges() {
+    if (!this.isBrowser) return; 
+  
     if (this.open) {
       document.body.style.overflow = 'hidden';
       // Sync selectedTraits with animal.traits when editor opens
