@@ -41,7 +41,7 @@
       <div class="editor-traits" *ngIf="animal">
         <h3>Available Traits</h3>
         <ul>
-          @for (trait of availableTraits; track $index) {
+          @for (trait of traitsPool; track $index) {
             <li>
               <strong>{{ trait.name }}</strong>
               <p>{{ trait.description }}</p>

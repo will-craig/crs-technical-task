@@ -24,6 +24,10 @@ export class Editor {
   @Output() closed = new EventEmitter<boolean>();
   @Output() confirm = new EventEmitter<Animal>();
 
+  get traitsPool(): Trait[] {
+    return this.availableTraits.filter(t => !this.newTraits.some(nt => nt.name === t.name));
+  }
+
   newTraits: Trait[] = this.animal?.traits || [] ;
 
   close() {
