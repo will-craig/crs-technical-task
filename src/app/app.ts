@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Animal } from './domain/models/animal.model';
 import { Trait } from './domain/models/traits.model';
 import { AnimalType } from './domain/enums/animal-types.enum';
