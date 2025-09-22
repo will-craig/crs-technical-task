@@ -21,44 +21,34 @@
 
   <div class="drawer__content">
     <div class="editor-grid">
-      <!-- Left: New Animal Form -->
+      <!-- Left: Selected Animal Traits -->
       <div class="editor-form">
-        <h3>Add New Animal</h3>
-  <form (submit)="$event.preventDefault(); saveNewAnimal()">
-          <label>
-            Name:
-            <input type="text" [(ngModel)]="newAnimal.name" name="animalName" required />
-          </label>
-          <div>
-            <h4>Selected Traits</h4>
-            <ul>
-              @for (trait of newAnimal.traits; track $index) {
-                <li>
-                  {{ trait.name }}
-                  <button type="button" (click)="removeTrait(trait)">Remove</button>
-                </li>
-              }
-            </ul>
-            <button type="button" (click)="removeAllTraits()">Clear All Traits</button>
-          </div>
-          <button type="submit">Save</button>
-          <button type="button" (click)="cancelNewAnimal()">Cancel</button>
-        </form>
-        <button *ngIf="!newAnimal" type="button" (click)="createNewAnimal()">Add New Animal</button>
+        <h3>Edit Traits for {{ animal.type }}</h3>
+        <div>
+          <h4>Current Traits</h4>
+          <ul>
+            @for (trait of newTraits; track $index) {
+              <li>
+                {{ trait.name }}
+                <button type="button" (click)="removeTraitFromSelected(trait)">Remove</button>
+              </li>
+            }
+          </ul>
+        </div>
       </div>
 
       <!-- Right: Trait List -->
-      <div class="editor-traits">
+      <div class="editor-traits" *ngIf="animal">
         <h3>Available Traits</h3>
         <ul>
           @for (trait of availableTraits; track $index) {
             <li>
-              {{ trait.name }}
-              <button type="button" (click)="addTrait(trait)">Add</button>
+              <strong>{{ trait.name }}</strong>
+              <p>{{ trait.description }}</p>
+              <button type="button" (click)="addTraitToSelected(trait)">Add</button>
             </li>
           }
         </ul>
-        <button type="button" (click)="addAllTraits()">Add All Traits</button>
       </div>
     </div>
   </div>

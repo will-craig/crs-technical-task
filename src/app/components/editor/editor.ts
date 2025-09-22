@@ -16,15 +16,15 @@ export class Editor {
 
   constructor() { }
 
-  @Input({required:true}) animals: Animal[] = [];
+  @Input({required:true}) animal!: Animal;
   @Input({required:true}) availableTraits: Trait[] = [];
   @Input({required:true}) animalType!: AnimalType;
   @Input() open = false;
 
   @Output() closed = new EventEmitter<boolean>();
-  @Output() confirm = new EventEmitter<Animal[]>();
+  @Output() confirm = new EventEmitter<Animal>();
 
-  newAnimal: Animal = { id: 1, name: '', type: this.animalType, traits: [] };
+  newTraits: Trait[] = this.animal?.traits || [] ;
 
   close() {
     this.closed.emit();
@@ -37,7 +37,8 @@ export class Editor {
   }
 
   onConfirm() {
-    this.confirm.emit(this.animals);
+    this.animal.traits = this.newTraits;
+    this.confirm.emit(this.animal);
   }
 
   // Prevent scroll on body when open (optional)
@@ -49,52 +50,14 @@ export class Editor {
     }
   }
 
-  createNewAnimal() {
-    this.newAnimal = { id: this.animals.length + 1, name: '', type: this.animalType, traits: [] };
-  }
-
-  removeAnimal(animal: Animal) {
-    this.animals = this.animals.filter(a => a.id !== animal.id);
-  }
-
-  saveNewAnimal() {
-    if (this.newAnimal) {
-      // Assign a unique id
-      this.newAnimal.id = this.animals.length + 1;
-      this.animals.push({ ...this.newAnimal });
-      this.close();
-      // Reset form for next open
-      this.newAnimal = { id: 1, name: '', type: this.animalType, traits: [] };
+  addTraitToSelected(trait: Trait) {
+    if (this.newTraits && !this.newTraits.some(t => t.name === trait.name)) {
+      this.newTraits.push(trait);
     }
   }
 
-  cancelNewAnimal() {
-    this.close();
-    this.newAnimal = { id: 1, name: '', type: this.animalType, traits: [] };
-  }
-
-  addAllTraits() {
-    if (this.newAnimal) {
-      this.newAnimal.traits = this.availableTraits;
-    }
-  }
-
-  addTrait(trait: Trait) {
-    if (this.newAnimal && !this.newAnimal.traits.includes(trait)) {
-      this.newAnimal.traits.push(trait);
-    }  
-  }
-  
-  removeTrait(trait: Trait) {
-    if (this.newAnimal) {
-      this.newAnimal.traits = this.newAnimal.traits.filter(t => t.name !== trait.name);
-    } 
-  }
-
-  removeAllTraits() {
-    if (this.newAnimal) {
-      this.newAnimal.traits = [];
-    }
+  removeTraitFromSelected(trait: Trait) {
+    this.newTraits = this.newTraits.filter(t => t.name !== trait.name);
   }
   
   }

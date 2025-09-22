@@ -21,54 +21,63 @@ export class App {
 
   editing: AnimalType = AnimalType.Dog;
   
-  get traits() { return this.editing === AnimalType.Dog ? this.dogTraits : this.catTraits; }
-  get animals() { return this.editing === AnimalType.Dog ? this.dogs : this.cats; }
+  get traits() { return this.editing === AnimalType.Dog ? this.availableDogTraits : this.availableCatTraits; }
+  get animal() { return this.editing === AnimalType.Dog ? this.dog : this.cat; }
 
-  dogs: Animal[] = [];
-  cats: Animal[] = [];
+  dog: Animal = { id: 1, type: AnimalType.Dog, traits: [] };
+  cat: Animal = { id: 2, type: AnimalType.Cat, traits: [] };
 
   drawerOpen = false;
 
   commonTraits: Trait[] = [
-    { name: 'Keen Sense of Smell', description: 'Cats and Dogs have a highly developed sense of smell, which they use to explore their environment.' }
+    { name: 'Keen Sense of Smell', description: 'Cats and Dogs have a highly developed sense of smell, which they use to explore their environment.' },
+    { name: 'Leadership', description: 'Both cats and dogs can exhibit leadership qualities within their social groups.' },
+    { name: 'Lockpicking', description: 'Cats and Dogs are skilled at manipulating objects with their paws and mouths, allowing them to open containers and doors.' },
+    { name: 'Advanced recon and infiltration', description: 'Cats and Dogs are adept at stealth and can move quietly to avoid detection, making them excellent at solo sneaking missions.' }
   ]
 
-  dogTraits: Trait[] = [
-    { name: 'Super Smell', description: 'Dogs have an extraordinary sense of smell, far superior to humans.' },
+  availableDogTraits: Trait[] = [
     { name: 'Powerful Bite', description: 'Dogs have powerful jaws and a strong bite, making them effective hunters.' },
     { name: 'Extreme Speed', description: 'Dogs are capable of running at high speeds, making them agile and quick.' },
+    { name: 'Loyalty', description: 'Dogs are known for their loyalty and strong bond with humans.' },
+
     ...this.commonTraits
   ];
 
-  catTraits: Trait[] = [
+  availableCatTraits: Trait[] = [
     { name: 'Night Vision', description: 'Cats have excellent night vision, allowing them to see in low light conditions.' },
     { name: 'Agility', description: 'Cats are incredibly agile and can jump great heights and distances.' },
-    {  name: 'Sharp Claws', description: 'Cats have sharp retractable claws that they use for climbing and hunting.' },
+    {  name:'Sharp Claws', description: 'Cats have sharp retractable claws that they use for climbing and hunting.' },
     ...this.commonTraits
   ];
 
-  onConfirm(updatedAnimalList: Animal[]) {
+  onConfirm(updatedAnimal: Animal) {
     if (this.editing === AnimalType.Dog) 
-      this.dogs = updatedAnimalList;
+      this.dog = updatedAnimal;
     else 
-      this.cats = updatedAnimalList;
+      this.cat = updatedAnimal;
 
     this.drawerOpen = false;
   }
 
-  clearAnimals() {
-    this.dogs = [];
-    this.cats = [];
+  clearAnimalTraits() {
+    this.dog.traits = [];
+    this.cat.traits = [];
   }
 
-  openDogs() { 
-    this.editing = AnimalType.Dog; 
-    this.drawerOpen = true; 
+  openDogs() {
+    this.editing = AnimalType.Dog;
+    this.drawerOpen = true;
   }
 
   openCats() {
-     this.editing = AnimalType.Cat; 
-     this.drawerOpen = true; 
-    }
+    this.editing = AnimalType.Cat;
+    this.drawerOpen = true;
+  }
+
+  openEditorForAnimal(animal: Animal) {
+    this.editing = animal.type;
+    this.drawerOpen = true;
+  }
 
 }

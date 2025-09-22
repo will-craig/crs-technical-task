@@ -2,17 +2,12 @@
   <h1>{{ title() }}</h1>
   <div class="dogs animals-list">
     <h2>Dogs</h2>
-    <button (click)="openDogs()">Insert</button>
+    <button (click)="openDogs()">Select</button>
     <ul >
-      @for (dog of dogs; track $index) {
+      @for (trait of dog?.traits; track $index) {
       <li class="card">
-        <strong>{{ dog.name }}</strong>
-        <ul>
-            @for (trait of dog.traits; track $index){
-              <li>{{ trait.name }}</li>
-            } 
-        </ul>
-        </li>
+          <strong>{{ trait.name }}</strong>
+      </li>
       }
     </ul>
 
@@ -20,23 +15,18 @@
 
   <div class="cats animals-list">
     <h2>Cats</h2>
-    <button (click)="openCats()">Insert</button>
+    <button (click)="openCats()">Select</button>
     <ul>
-      @for (cat of cats; track $index) {
+      @for (trait of cat?.traits; track $index) {
       <li class="card">
-        <strong>{{ cat.name }}</strong>
-         <ul>
-            @for (trait of cat.traits; track $index){
-              <li>{{ trait.name }}</li>
-            } 
-        </ul>
-        </li>
+          <strong>{{ trait.name }}</strong>
+      </li>
       }
       </ul>
   </div>
 
   <app-editor
-    [animals]="animals"
+    [animal]="animal"
     [availableTraits]="traits"
     [animalType]="editing"
     [open]="drawerOpen"
