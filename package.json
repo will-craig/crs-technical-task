@@ -9,6 +9,9 @@
     "test": "ng test",
     "serve:ssr:crs-technical-task": "node dist/crs-technical-task/server/server.mjs"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,
