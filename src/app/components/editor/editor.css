@@ -1,4 +1,29 @@
-/* Subtle, natural button styles */
+.traits-controls {
+  margin-bottom: 0.5em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.traits-search {
+  padding: 0.3em 0.7em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.traits-sort-label {
+  font-size: 0.95em;
+}
+.traits-sort {
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.editor-actions .save {
+  background: #e6f4ea !important;
+  color: #198754 !important;
+  border: 1px solid #c3e6cb !important;
+  font-weight: 500;
+}
+
 button {
   background: #e9ecef;
   color: #333;
@@ -150,12 +175,11 @@ button[type="submit"]:hover, button[type="submit"]:focus {
   flex: 1;
 }
 
-/* Optional “swing” overshoot on open */
 .drawer.open {
   animation: slideIn 340ms cubic-bezier(.2,.8,.2,1);
 }
 @keyframes slideIn {
   0%   { transform: translateX(100%); }
-  85%  { transform: translateX(-2%); } /* tiny overshoot */
+  85%  { transform: translateX(-2%); } 
   100% { transform: translateX(0); }
 }

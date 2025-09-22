@@ -33,7 +33,7 @@ export class App {
     { name: 'Keen Sense of Smell', description: 'Cats and Dogs have a highly developed sense of smell, which they use to explore their environment.' },
     { name: 'Leadership', description: 'Both cats and dogs can exhibit leadership qualities within their social groups.' },
     { name: 'Lockpicking', description: 'Cats and Dogs are skilled at manipulating objects with their paws and mouths, allowing them to open containers and doors.' },
-    { name: 'Advanced recon and infiltration', description: 'Cats and Dogs are adept at stealth and can move quietly to avoid detection, making them excellent at solo sneaking missions.' }
+    { name: 'Advanced Recon and Infiltration', description: 'Cats and Dogs are adept at stealth and can move quietly to avoid detection, making them excellent at solo sneaking missions.' }
   ]
 
   availableDogTraits: Trait[] = [
@@ -63,16 +63,6 @@ export class App {
   clearAnimalTraits() {
     this.dog.traits = [];
     this.cat.traits = [];
-  }
-
-  openDogs() {
-    this.editing = AnimalType.Dog;
-    this.drawerOpen = true;
-  }
-
-  openCats() {
-    this.editing = AnimalType.Cat;
-    this.drawerOpen = true;
   }
 
   openEditorForAnimal(animal: Animal) {

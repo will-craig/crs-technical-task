@@ -27,21 +27,38 @@
         <div>
           <h4>Current Traits</h4>
           <ul>
-            @for (trait of newTraits; track $index) {
+            @for (trait of selectedTraits; track $index) {
               <li>
                 {{ trait.name }}
+                <button type="button" (click)="moveTraitUp($index)">↑</button>
+                <button type="button" (click)="moveTraitDown($index)">↓</button>
                 <button type="button" (click)="removeTraitFromSelected(trait)">Remove</button>
               </li>
             }
           </ul>
+          <div class="editor-actions">
+          <button type="button" class="save" (click)="onConfirm()">Save</button>
+            <button type="button" class="add-all" (click)="addAllTraits()">Add All Traits</button>
+            <button type="button" class="clear-all" (click)="clearAllTraits()">Clear All Traits</button>
+          </div>
         </div>
       </div>
 
       <!-- Right: Trait List -->
       <div class="editor-traits" *ngIf="animal">
         <h3>Available Traits</h3>
+        <div class="traits-controls">
+          <input type="text" [(ngModel)]="traitFilter" placeholder="Search traits..." class="traits-search" />
+          <label class="traits-sort-label">
+            Sort:
+            <select [(ngModel)]="traitSort" class="traits-sort">
+              <option value="asc">A-Z</option>
+              <option value="desc">Z-A</option>
+            </select>
+          </label>
+        </div>
         <ul>
-          @for (trait of traitsPool; track $index) {
+          @for (trait of filteredSortedTraitsPool; track $index) {
             <li>
               <strong>{{ trait.name }}</strong>
               <p>{{ trait.description }}</p>

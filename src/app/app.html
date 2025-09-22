@@ -1,8 +1,9 @@
 <main class="container">
   <h1>{{ title() }}</h1>
+  <button type="button" class="clear-all" (click)="clearAnimalTraits()">Clear All Traits</button>
   <div class="dogs animals-list">
     <h2>Dogs</h2>
-    <button (click)="openDogs()">Select</button>
+    <button (click)="openEditorForAnimal(dog)">Select</button>
     <ul >
       @for (trait of dog?.traits; track $index) {
       <li class="card">
@@ -15,7 +16,7 @@
 
   <div class="cats animals-list">
     <h2>Cats</h2>
-    <button (click)="openCats()">Select</button>
+    <button (click)="openEditorForAnimal(cat)">Select</button>
     <ul>
       @for (trait of cat?.traits; track $index) {
       <li class="card">
@@ -28,7 +29,6 @@
   <app-editor
     [animal]="animal"
     [availableTraits]="traits"
-    [animalType]="editing"
     [open]="drawerOpen"
     (closed)="drawerOpen = false"
     (confirm)="onConfirm($event)"
